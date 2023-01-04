@@ -1,0 +1,38 @@
+{
+  "name": "mediaonion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "test": "jest --forceExit --coverage --verbose --silent=false",
+    "watch": "tsc -w",
+    "serve": "ts-node src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.2.21",
+    "@types/compression": "^1.7.2",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
+    "chai": "^4.3.4",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "commander": "^10.0.0",
+    "compression": "^1.7.4",
+    "got-cjs": "^12.5.4",
+    "inspector.js": "1.1.10",
+    "node-cache": "^5.1.2",
+    "prom-client": "^14.1.1",
+    "winston": "^3.3.3"
+  }
+}

@@ -1,0 +1,29 @@
+{
+    "http": {
+        "port": 8080,
+        "cors": {
+            "allowHeaders": ["*"],
+            "exposeHeaders": ["Server" , "range" , "Content-Length", "Content-Range"],
+            "allowMethods": ["GET", "HEAD", "OPTIONS"],
+            "allowOrigin":["*"]
+        },
+        "cache": {
+            "playlist": {
+                "expiresIn": 10000,
+                "lastModified": "Wed, 21 Oct 2015 07:28:00 GMT"
+            }
+        },
+        "gzip": true
+    },
+    "applications": {
+        "hls": {
+            "originPath": "./media",
+            "hlsMuxer": {
+                "segmentLength": 10000,
+                "absoluteBaseUrl": "http://localhost:8080",
+                "absoluteIndexUrls": false,
+                "absoluteSegmentUrls": false
+            }
+        }
+    }
+}
