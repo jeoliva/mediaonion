@@ -45,7 +45,7 @@ export class Prometheus {
             help: "Metadata cache values size"
         });
 
-        const labels = ["status_code", "type"];
+        const labels = ["status_code", "appId", "type"];
         this.httpMetric = new Histogram({
             name: "http_request_duration_seconds",
             help: "duration histogram of http responses",

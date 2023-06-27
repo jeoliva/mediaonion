@@ -65,6 +65,7 @@ const server = http.createServer( async (request: CustomIncomingMessage, respons
         });
 
         if (!appId || (appId !== "api" && !config.parameters.applications[appId])) {
+            labels["appId"] = "unknown";
             labels["type"] = "app_unknown";
             response.writeHead(404);
             response.end("unknown app");
@@ -107,26 +108,29 @@ const server = http.createServer( async (request: CustomIncomingMessage, respons
                     response.end();
                 }
             } else { // HLS app
-                if (config.parameters.applications[appId])
-                if (UrlUtils.isMasterPlaylist(request.customParsedUrl.pathname)) {
-                    labels["type"] = "master_playlist";
-                    mediaRequestController.getHLSManifest(request, response);
-                } else if (UrlUtils.isPlaylist(request.customParsedUrl.pathname)) {
-                    labels["type"] = "playlist";
-                    mediaRequestController.getHLSVariant(request, response);
-                } else if (UrlUtils.isSegment(request.customParsedUrl.pathname)) {
-                    labels["type"] = "segment";
-                    mediaRequestController.getSegment(request, response);
-                } else if (request.customParsedUrl.pathname.endsWith("metadata")) {
-                    labels["type"] = "metadata";
-                    mediaRequestController.getMetadataInfo(request, response);
-                } else {
-                    labels["type"] = "media_unknown";
-                    response.writeHead(404);
-                    response.end("unknown request");
+                if (config.parameters.applications[appId]) {
+                    labels["appId"] = appId;
+                    if (UrlUtils.isMasterPlaylist(request.customParsedUrl.pathname)) {
+                        labels["type"] = "master_playlist";
+                        mediaRequestController.getHLSManifest(request, response);
+                    } else if (UrlUtils.isPlaylist(request.customParsedUrl.pathname)) {
+                        labels["type"] = "playlist";
+                        mediaRequestController.getHLSVariant(request, response);
+                    } else if (UrlUtils.isSegment(request.customParsedUrl.pathname)) {
+                        labels["type"] = "segment";
+                        mediaRequestController.getSegment(request, response);
+                    } else if (request.customParsedUrl.pathname.endsWith("metadata")) {
+                        labels["type"] = "metadata";
+                        mediaRequestController.getMetadataInfo(request, response);
+                    } else {
+                        labels["type"] = "media_unknown";
+                        response.writeHead(404);
+                        response.end("unknown request");
+                    }
                 }
             } 
         } else {
+            labels["appId"] = "unknown";
             labels["type"] = "unknown";
             response.end();
         }
